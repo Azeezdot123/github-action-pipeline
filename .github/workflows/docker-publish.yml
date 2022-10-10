@@ -3,8 +3,6 @@ name: CI
 on:
   push:
     branches: [ "main" ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -12,10 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
 
     steps:
     - name: Checkout repository
@@ -37,7 +31,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: devolamilekan/stock
-        tags: v1, latest
+        tags: ${{ github.sha }}, latest
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
