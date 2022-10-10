@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  vote:
+    image: devolamilekan/stock:latest
+    depends_on:
+      - db
+    ports:
+      - "8010:8000"
+    networks:
+      - stock
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    networks:
+      - stock
+
+
+
+networks:
+  stock:
